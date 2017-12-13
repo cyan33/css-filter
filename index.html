@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS-filter</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="img-container">
+    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513732898&di=6c2715f5cacf95374f4ebee6edbb4527&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.m1905.com%2Fuploadfile%2F2011%2F0722%2F20110722060133758.jpg" alt="ga">
+  </div>
+  <div class="info">Use Chrome, Firefox, or IE10+ to achieve the best result.</div>
+  <div class="content-container">
+    <div class="options">
+      <div class="parameter">
+        <label>Brightness: </label><input type="range" class="brightness" min="0" max="500">
+      </div>
+      <div class="parameter">
+        <label>Saturate: </label><input type="range" class="saturate" min="0" max="500" value="100">
+      </div>
+      <div class="parameter">
+        <label>Opacity: </label><input type="range" class="opacity" value="100">
+      </div>
+      <div class="parameter">
+        <label>Blur: </label><input type="range" class="blur" min="0" max="10" value="0">
+      </div>
+      <div class="parameter">
+        <label>Contrast: </label><input type="range" class="contrast" min="40" max="250" value="100">
+      </div>
+      <div class="parameter">
+        <label>Grayscale: </label><input type="range" class="grayscale" value="0">
+      </div>
+      <div class="parameter">
+        <label>Hue-rotate: </label><input type="range" class="hue-rotate" min="0" max="90" value="0">
+      </div>
+      <div class="parameter">
+        <label>Sepia: </label><input type="range" class="sepia" min="0" max="100" value="0">
+      </div>
+    </div>
+    <div class="settings">
+      <button>Upload</button>
+      <button class="reset">Reset</button>
+      <br> <br>
+      <div class="introduction">
+        Image filter rendered by pure CSS. <a href="https://github.com/thomasyimgit">@Chang</a> 2017  <br> <br>
+        <div>
+          <h4>Reference</h4>
+          <br>
+        </div>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">MDN | Filter</a> 
+        <br> <br>
+        <a href="https://css-tricks.com/almanac/properties/f/filter/">CSS Tricks | Filter</a>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+</html>
