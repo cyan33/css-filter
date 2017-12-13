@@ -1,7 +1,13 @@
-(function() {
+;(function() {
   var img = $('.img-container img');
 
-  function getFilterStyleWithout(attr) {
+  function setFilter(attr, val) {
+    var hashUnit = {
+      brightness: '%', saturate: '%', opacity: '%',
+      contrast: '%', grayscale: '%', sepia: '%',
+      huerotate: 'deg',
+      blur: 'px'
+    };
     var hashRegex = {
       brightness: /brightness\(.*?\)/gi,
       saturate: /saturate\(.*?\)/gi,
@@ -12,18 +18,12 @@
       huerotate: /hue\-rotate\(.*?\)/gi,
       sepia: /sepia\(.*?\)/gi
     };
-    var style = getComputedStyle($('.img-container img')[0])['filter'].replace(hashRegex[attr], '');
-    return style === 'none' ? '' : style;
-  }
+    var style = getComputedStyle($('.img-container img')[0])['filter'] === 'none' ? '' : getComputedStyle($('.img-container img')[0])['filter'];
+    var newFilter = attr + '(' + val + hashUnit[attr.replace('-', '')] + ')';
 
-  function setFilter(attr, val) {
-    var hashUnit = {
-      brightness: '%', saturate: '%', opacity: '%',
-      contrast: '%', grayscale: '%', sepia: '%',
-      huerotate: 'deg',
-      blur: 'px'
-    };
-    return getFilterStyleWithout(attr.replace('-', '')) + ' ' + attr + '(' + val + hashUnit[attr.replace('-', '')] + ')';
+    style = hashRegex[attr.replace('-', '')].test(style) ? style.replace(hashRegex[attr.replace('-', '')], newFilter) : style + ' ' + newFilter;
+
+    return style;
   }
 
   function reset() {
