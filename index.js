@@ -30,6 +30,22 @@
     img.css('filter', '');
   }
 
+  function uploadImage() {
+    var file = $('input[type=file]')[0].files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+      img.attr('src', reader.result);
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      img.attr('src', '');
+    }
+  }
+  
+  $('input[type="file"]').on('change', uploadImage);
   $('input[type="range"]').on('input', function(e) {
     img.css('filter', setFilter($(this).attr('class'), $(this).val()));
   });
@@ -43,4 +59,5 @@
     // reset filter
     img.css('filter', '');
   })
+
 })();
