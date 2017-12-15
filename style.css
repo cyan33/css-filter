@@ -40,7 +40,3 @@ a:active, a:hover {
 .content-container .settings {
   margin-left: 30px;
 }
-
-input[type="file"] {
-  width: 80px;
-}
