@@ -27,6 +27,12 @@
   }
 
   function reset() {
+    // reset range inputs
+    $('input[type="range"]').each(function() {
+      $(this).val(this.defaultValue);
+    });
+
+    // reset filter
     img.css('filter', '');
   }
 
@@ -34,6 +40,7 @@
     var file = $('input[type=file]')[0].files[0];
     var reader = new FileReader();
 
+    reset();
     reader.onloadend = function () {
       img.attr('src', reader.result);
     }
@@ -50,14 +57,5 @@
     img.css('filter', setFilter($(this).attr('class'), $(this).val()));
   });
 
-  $('button.reset').click(function() {
-    // reset range inputs
-    $('input[type="range"]').each(function() {
-      $(this).val(this.defaultValue);
-    });
-
-    // reset filter
-    img.css('filter', '');
-  })
-
+  $('button.reset').click(reset);
 })();
