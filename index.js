@@ -42,13 +42,12 @@
 
     reset();
     reader.onloadend = function () {
-      img.attr('src', reader.result);
+      var result = reader.result.indexOf('data:image') !== 0 ? img.attr('src') : reader.result;
+      img.attr('src', result);
     }
 
     if (file) {
       reader.readAsDataURL(file);
-    } else {
-      img.attr('src', '');
     }
   }
   
