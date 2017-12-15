@@ -31,6 +31,7 @@
   }
 
   function uploadImage() {
+    img.css('filter', '');
     var file = $('input[type=file]')[0].files[0];
     var reader = new FileReader();
 
