@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import './style.css';
 
 const img = $('.img-container img');
 
