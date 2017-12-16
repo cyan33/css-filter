@@ -1,3 +1,7 @@
+dist
+.cache
+package-lock.json
+
 # Logs
 logs
 *.log

@@ -1,0 +1,25 @@
+{
+  "name": "css-filter",
+  "version": "1.0.0",
+  "description": "The evolution speed of CSS is way beyond me.",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "parcel-bundler": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/parcel ./index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasyimgit/CSS-filter.git"
+  },
+  "author": "Chang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomasyimgit/CSS-filter/issues"
+  },
+  "homepage": "https://github.com/thomasyimgit/CSS-filter#readme"
+}

@@ -1,60 +1,60 @@
-;(function() {
-  var img = $('.img-container img');
+import $ from 'jquery';
 
-  function setFilter(attr, val) {
-    var hashUnit = {
-      brightness: '%', saturate: '%', opacity: '%',
-      contrast: '%', grayscale: '%', sepia: '%',
-      huerotate: 'deg',
-      blur: 'px'
-    };
-    var hashRegex = {
-      brightness: /brightness\(.*?\)/gi,
-      saturate: /saturate\(.*?\)/gi,
-      opacity: /opacity\(.*?\)/gi,
-      blur: /blur\(.*?\)/gi,
-      contrast: /contrast\(.*?\)/gi,
-      grayscale: /grayscale\(.*?\)/gi,
-      huerotate: /hue\-rotate\(.*?\)/gi,
-      sepia: /sepia\(.*?\)/gi
-    };
-    var style = getComputedStyle($('.img-container img')[0])['filter'] === 'none' ? '' : getComputedStyle($('.img-container img')[0])['filter'];
-    var newFilter = attr + '(' + val + hashUnit[attr.replace('-', '')] + ')';
+const img = $('.img-container img');
 
-    style = hashRegex[attr.replace('-', '')].test(style) ? style.replace(hashRegex[attr.replace('-', '')], newFilter) : style + ' ' + newFilter;
+function setFilter(attr, val) {
+  const hashUnit = {
+    brightness: '%', saturate: '%', opacity: '%',
+    contrast: '%', grayscale: '%', sepia: '%',
+    huerotate: 'deg',
+    blur: 'px'
+  };
+  const hashRegex = {
+    brightness: /brightness\(.*?\)/gi,
+    saturate: /saturate\(.*?\)/gi,
+    opacity: /opacity\(.*?\)/gi,
+    blur: /blur\(.*?\)/gi,
+    contrast: /contrast\(.*?\)/gi,
+    grayscale: /grayscale\(.*?\)/gi,
+    huerotate: /hue\-rotate\(.*?\)/gi,
+    sepia: /sepia\(.*?\)/gi
+  };
+  let style = getComputedStyle($('.img-container img')[0])['filter'] === 'none' ? '' : getComputedStyle($('.img-container img')[0])['filter'];
+  const newFilter = `${attr}(${val}${hashUnit[attr.replace('-', '')]})`;
 
-    return style;
-  }
+  style = hashRegex[attr.replace('-', '')].test(style) ? style.replace(hashRegex[attr.replace('-', '')], newFilter) : `${style}  ${newFilter}`;
 
-  function reset() {
-    // reset range inputs
-    $('input[type="range"]').each(function() {
-      $(this).val(this.defaultValue);
-    });
+  return style;
+}
 
-    // reset filter
-    img.css('filter', '');
-  }
-
-  function uploadImage() {
-    var file = $('input[type=file]')[0].files[0];
-    var reader = new FileReader();
-
-    reset();
-    reader.onloadend = function () {
-      var result = reader.result.indexOf('data:image') !== 0 ? img.attr('src') : reader.result;
-      img.attr('src', result);
-    }
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
-  
-  $('input[type="file"]').on('change', uploadImage);
-  $('input[type="range"]').on('input', function(e) {
-    img.css('filter', setFilter($(this).attr('class'), $(this).val()));
+function reset() {
+  // reset range inputs
+  $('input[type="range"]').each(function() {
+    $(this).val(this.defaultValue);
   });
 
-  $('button.reset').click(reset);
-})();
+  // reset filter
+  img.css('filter', '');
+}
+
+function uploadImage() {
+  const file = $('input[type=file]')[0].files[0];
+  const reader = new FileReader();
+
+  reset();
+  reader.onloadend = function() {
+    const result = reader.result.indexOf('data:image') !== 0 ? img.attr('src') : reader.result;
+    img.attr('src', result);
+  }
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
+$('input[type="file"]').on('change', uploadImage);
+$('input[type="range"]').on('input', function() {
+  img.css('filter', setFilter($(this).attr('class'), $(this).val()));
+});
+
+$('button.reset').click(reset);
