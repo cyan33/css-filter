@@ -65,69 +65,70 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({1:[function(require,module,exports) {
-;(function() {
-  var img = $('.img-container img');
-
-  function setFilter(attr, val) {
-    var hashUnit = {
-      brightness: '%', saturate: '%', opacity: '%',
-      contrast: '%', grayscale: '%', sepia: '%',
-      huerotate: 'deg',
-      blur: 'px'
-    };
-    var hashRegex = {
-      brightness: /brightness\(.*?\)/gi,
-      saturate: /saturate\(.*?\)/gi,
-      opacity: /opacity\(.*?\)/gi,
-      blur: /blur\(.*?\)/gi,
-      contrast: /contrast\(.*?\)/gi,
-      grayscale: /grayscale\(.*?\)/gi,
-      huerotate: /hue\-rotate\(.*?\)/gi,
-      sepia: /sepia\(.*?\)/gi
-    };
-    var style = getComputedStyle($('.img-container img')[0])['filter'] === 'none' ? '' : getComputedStyle($('.img-container img')[0])['filter'];
-    var newFilter = attr + '(' + val + hashUnit[attr.replace('-', '')] + ')';
-
-    style = hashRegex[attr.replace('-', '')].test(style) ? style.replace(hashRegex[attr.replace('-', '')], newFilter) : style + ' ' + newFilter;
-
-    return style;
+})({5:[function(require,module,exports) {
+var bundleURL = null;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
   }
 
-  function reset() {
-    // reset range inputs
-    $('input[type="range"]').each(function() {
-      $(this).val(this.defaultValue);
-    });
+  return bundleURL;
+}
 
-    // reset filter
-    img.css('filter', '');
-  }
-
-  function uploadImage() {
-    var file = $('input[type=file]')[0].files[0];
-    var reader = new FileReader();
-
-    reset();
-    reader.onloadend = function () {
-      var result = reader.result.indexOf('data:image') !== 0 ? img.attr('src') : reader.result;
-      img.attr('src', result);
-    }
-
-    if (file) {
-      reader.readAsDataURL(file);
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error;
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^\)\n]+/g);
+    if (matches) {
+      return getBaseURL(matches[0]);
     }
   }
-  
-  $('input[type="file"]').on('change', uploadImage);
-  $('input[type="range"]').on('input', function(e) {
-    img.css('filter', setFilter($(this).attr('class'), $(this).val()));
-  });
 
-  $('button.reset').click(reset);
-})();
+  return '/';
+}
 
-},{}],0:[function(require,module,exports) {
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^\/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+
+},{}],4:[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    link.remove();
+  };
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+};
+
+module.exports = reloadCSS;
+
+},{"./bundle-url":5}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
@@ -145,7 +146,7 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent) {
-  var ws = new WebSocket('ws://localhost:57401/');
+  var ws = new WebSocket('ws://localhost:58233/');
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 
@@ -243,4 +244,4 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id)
   });
 }
-},{}]},{},[0,1])
+},{}]},{},[0])
