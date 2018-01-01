@@ -36,12 +36,15 @@ class App extends Component {
     })
   }
 
-  handleFileUpload = () => {
-
+  onFileUploadCb = (src) => {
+    this.setState({ src })
   }
 
-  handleReset = () => {
-
+  onReset = () => {
+    this.setState({
+      ...this.state,
+      parameters: initParams()
+    })
   }
 
   render() {
@@ -53,7 +56,10 @@ class App extends Component {
             {...this.state.parameters} 
             onHandleRangeInput={this.handleRangeInput}
           />
-          <Settings />
+          <Settings 
+            onReset={this.onReset}
+            onFileUploadCb={this.onFileUploadCb}
+          />
         </div>
       </div>
     )
