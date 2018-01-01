@@ -2,6 +2,22 @@
   "name": "css-filter",
   "version": "1.0.0",
   "description": "The evolution speed of CSS is way beyond me.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/parcel ./src/index.html",
+    "build": "rm -rf /dist && ./node_modules/.bin/parcel build ./src/index.html --out-dir dist",
+    "deploy": "gh-pages -d /dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasyimgit/CSS-filter.git"
+  },
+  "author": "Chang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomasyimgit/CSS-filter/issues"
+  },
+  "homepage": "https://github.com/thomasyimgit/CSS-filter#readme",
   "dependencies": {
     "glamor": "^2.20.40",
     "parcel-bundler": "^1.2.0",
@@ -13,20 +29,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/parcel ./src/index.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thomasyimgit/CSS-filter.git"
-  },
-  "author": "Chang",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/thomasyimgit/CSS-filter/issues"
-  },
-  "homepage": "https://github.com/thomasyimgit/CSS-filter#readme"
+    "babel-preset-react": "^6.24.1",
+    "gh-pages": "^1.1.0"
+  }
 }
