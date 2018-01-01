@@ -3,7 +3,7 @@ import React from 'react'
 const filterRanges = {
   brightness: [0, 500],
   saturate: [0, 500],
-  opacity: [0, 10],
+  opacity: [0, 100],
   blur: [0, 10],
   contrast: [40, 250],
   grayscale: [0, 100],
