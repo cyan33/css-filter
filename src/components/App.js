@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      src: 'https://i.loli.net/2017/12/31/5a48f6bba0549.jpeg',
+      src: 'https://i.loli.net/2018/02/01/5a729b3dbd91f.jpg',
       parameters: this.initParams()
     }
   }
@@ -51,7 +51,8 @@ class App extends Component {
     return (
       <div {...css({
         width: '600px',
-        margin: '30px auto'
+        height: '100%',
+        margin: '0 auto'
       })}>
         <Preview src={this.state.src} {...this.state.parameters} />
         <div className="content-container">

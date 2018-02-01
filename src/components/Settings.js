@@ -73,10 +73,6 @@ class Settings extends PureComponent {
           onClick={onReset}
           style={{ marginRight: '10px' }}
         />
-        <RaisedButton 
-          label="Save Picture"
-          onClick={onReset}
-        />
         <br /> <br />
         <div className="introduction">
           Image filter rendered by pure CSS.<br /> <br />
