@@ -17,7 +17,7 @@ Go to [http://localhost:1234](http://localhost:1234)
 
 ## Demo
 
-![filter-demo3.gif](https://i.loli.net/2017/12/13/5a30c58dac47b.gif)
+![filter-demo.gif](./assets/screenshot.gif)
 
 ## Reference
 
