@@ -1,6 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import App from './components/App'
 
-render(<App />, document.querySelector('.root'))
+render(
+<MuiThemeProvider>
+  <App />
+</MuiThemeProvider>
+, document.querySelector('.root'))

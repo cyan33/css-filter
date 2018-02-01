@@ -5,11 +5,11 @@ h4 {
 
 a {
   text-decoration: none;
-  color: rgb(87, 145, 231);
+  color: #00bcd4;
 }
 
 a:active, a:hover {
-  color: rgb(65, 107, 172);
+  color: #00bcd4;
 }
 
 .img-container {
@@ -38,5 +38,5 @@ a:active, a:hover {
 }
 
 .content-container .settings {
-  margin-left: 30px;
+  margin-left: 60px;
 }

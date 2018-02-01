@@ -1,4 +1,7 @@
 import React, { PureComponent } from 'react'
+import { css } from 'glamor'
+import RaisedButton from 'material-ui/RaisedButton'
+import UploadIcon from 'material-ui/svg-icons/file/file-upload'
 
 class Settings extends PureComponent {
   onFileUpload = () => {
@@ -21,19 +24,62 @@ class Settings extends PureComponent {
   render() {
     const { onReset } = this.props
     return (
-      <div className="settings">
-        <input 
-          name="upload" type="file" 
-          ref={(fileInput)=> this.fileInput = fileInput}
-          onChange={this.onFileUpload}
+      <div className="settings" {...css({
+        fontFamily: 'Roboto, sans-serif'
+      })}>
+        <div>
+          <label 
+            htmlFor="upload"
+            className="upload-label"
+            {...css({
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '160px',
+              height: '38px',
+              backgroundColor: '#00bcd4',
+              color: '#fff',
+              marginBottom: '20px',
+              cursor: 'pointer',
+              boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
+              transition: 'all 0.3s',
+              '&:hover, &:focus': { 
+                backgroundColor: '#00838e',
+                outline: 'none'
+              }
+            })}
+          >
+            <UploadIcon color="#fff" {...css({ marginRight: '5px' })}/>
+            Choose a file...
+          </label>
+          <input 
+            type="file"
+            id="upload"
+            ref={(fileInput)=> this.fileInput = fileInput}
+            onChange={this.onFileUpload}
+            {...css({
+              width: '0.1px',
+              height: '0.1px',
+              opacity: '0',
+              overflow: 'hidden',
+              position: 'absolute',
+              zIndex: '-1',
+
+            })}
+          />
+        </div>
+        <RaisedButton 
+          label="Reset"
+          onClick={onReset}
+          style={{ marginRight: '10px' }}
+        />
+        <RaisedButton 
+          label="Save Picture"
+          onClick={onReset}
         />
         <br /> <br />
-        <button className="reset" onClick={onReset}>
-          Reset
-        </button>
-        <br /> <br />
         <div className="introduction">
-          Image filter rendered by pure CSS. <a href="https://github.com/thomasyimgit">@Chang</a> 2017  <br /> <br />
+          Image filter rendered by pure CSS.<br /> <br />
         <div>
           <h4>Reference</h4>
           <br />
