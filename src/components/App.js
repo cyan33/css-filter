@@ -47,6 +47,10 @@ class App extends Component {
     })
   }
 
+  getImageDataUrlFromPreview = () => {
+    return this.previewNode.getImageDataUrl()
+  }
+
   render() {
     return (
       <div {...css({
@@ -54,7 +58,11 @@ class App extends Component {
         height: '100%',
         margin: '0 auto'
       })}>
-        <Preview src={this.state.src} {...this.state.parameters} />
+        <Preview 
+          src={this.state.src}
+          ref={(previewNode) => this.previewNode = previewNode}
+          {...this.state.parameters}
+        />
         <div className="content-container">
           <Parameters 
             {...this.state.parameters} 
@@ -63,6 +71,7 @@ class App extends Component {
           <Settings 
             onReset={this.onReset}
             onFileUploadCb={this.onFileUploadCb}
+            getImageDataUrlFromPreview={this.getImageDataUrlFromPreview}
           />
         </div>
       </div>

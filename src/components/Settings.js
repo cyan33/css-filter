@@ -21,8 +21,20 @@ class Settings extends PureComponent {
     }
   }
 
+  downloadImage = () => {
+    const imgDataUrl = this.props.getImageDataUrlFromPreview()
+
+    // do the download stuff
+    const anchor = document.createElement('a')
+    anchor.href = imgDataUrl.toString()
+    anchor.setAttribute('download', 'image.jpeg')
+
+    anchor.click();
+  }
+
   render() {
     const { onReset } = this.props
+
     return (
       <div className="settings" {...css({
         fontFamily: 'Roboto, sans-serif'
@@ -72,6 +84,10 @@ class Settings extends PureComponent {
           label="Reset"
           onClick={onReset}
           style={{ marginRight: '10px' }}
+        />
+        <RaisedButton 
+          label="Download Picture"
+          onClick={this.downloadImage}
         />
         <br /> <br />
         <div className="introduction">

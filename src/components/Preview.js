@@ -1,35 +1,53 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { css } from 'glamor'
 
-const transformFilters = ({
-  brightness,
-  blur,
-  contrast,
-  grayscale,
-  hueRotate,
-  opacity,
-  saturate,
-  sepia
-}) => {
-  return `
-    brightness(${brightness}%)
-    saturate(${saturate}%)
-    opacity(${opacity}%)
-    contrast(${contrast}%)
-    grayscale(${grayscale}%)
-    sepia(${sepia}%)
-    blur(${blur}px)
-    hue-rotate(${hueRotate}deg)
-  `
+export default class Preview extends PureComponent {
+  transformFilters({
+    brightness,
+    blur,
+    contrast,
+    grayscale,
+    hueRotate,
+    opacity,
+    saturate,
+    sepia
+  }) {
+    return `
+      brightness(${brightness}%)
+      saturate(${saturate}%)
+      opacity(${opacity}%)
+      contrast(${contrast}%)
+      grayscale(${grayscale}%)
+      sepia(${sepia}%)
+      blur(${blur}px)
+      hue-rotate(${hueRotate}deg)
+    `
+  }
+
+  getImageDataUrl() {
+    const canvas = document.createElement('canvas')
+    canvas.width = this.imgNode.width
+    canvas.height = this.imgNode.height
+    
+    var ctx = canvas.getContext('2d')
+
+    ctx.filter = this.transformFilters(this.props)
+    ctx.drawImage(this.imgNode, 0, 0, canvas.width, canvas.height)
+    return canvas.toDataURL('image/jpeg')
+  }
+
+  render() {
+    const { src, ...fs } = this.props
+    return (
+      <div className="img-container">
+        <img 
+          ref={(imgNode) => this.imgNode = imgNode}
+          src={src}
+          alt="filter-preview"
+          crossOrigin="Anonymous"
+          {...css({filter: this.transformFilters(fs)})}
+        />
+      </div>
+    )
+  }
 }
-
-const Preview = ({ src, ...fs }) => (
-  <div className="img-container">
-    <img
-      src={src} alt="filter-preview" 
-      {...css({filter: transformFilters(fs)})}
-    />
-  </div>
-)
-
-export default Preview
