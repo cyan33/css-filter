@@ -33,18 +33,18 @@ export default class Preview extends PureComponent {
 
     ctx.filter = this.transformFilters(this.props)
     ctx.drawImage(this.imgNode, 0, 0, canvas.width, canvas.height)
-    return canvas.toDataURL('image/jpeg')
+    return canvas.toDataURL('image/jpeg', 1)
   }
 
   render() {
     const { src, ...fs } = this.props
     return (
       <div className="img-container">
-        <img 
+        <img
           ref={(imgNode) => this.imgNode = imgNode}
+          crossOrigin="anonymous"
           src={src}
           alt="filter-preview"
-          crossOrigin="Anonymous"
           {...css({filter: this.transformFilters(fs)})}
         />
       </div>
