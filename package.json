@@ -20,6 +20,7 @@
   "homepage": "https://github.com/thomasyimgit/CSS-filter#readme",
   "dependencies": {
     "glamor": "^2.20.40",
+    "image-screenshot": "^0.1.0",
     "material-ui": "^0.20.0",
     "parcel-bundler": "^1.2.0",
     "react": "^16.2.0",

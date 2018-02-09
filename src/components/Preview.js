@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { css } from 'glamor'
+import screenshot from 'image-screenshot'
 
 export default class Preview extends PureComponent {
   transformFilters({
@@ -24,16 +25,8 @@ export default class Preview extends PureComponent {
     `
   }
 
-  getImageDataUrl() {
-    const canvas = document.createElement('canvas')
-    canvas.width = this.imgNode.width
-    canvas.height = this.imgNode.height
-    
-    var ctx = canvas.getContext('2d')
-
-    ctx.filter = this.transformFilters(this.props)
-    ctx.drawImage(this.imgNode, 0, 0, canvas.width, canvas.height)
-    return canvas.toDataURL('image/jpeg', 1)
+  downloadImage() {
+    return screenshot(this.imgNode, 'jpeg', 1.0).download()
   }
 
   render() {

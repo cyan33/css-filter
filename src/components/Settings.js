@@ -22,14 +22,7 @@ class Settings extends PureComponent {
   }
 
   downloadImage = () => {
-    const imgDataUrl = this.props.getImageDataUrlFromPreview()
-
-    // do the download stuff
-    const anchor = document.createElement('a')
-    anchor.href = imgDataUrl.toString()
-    anchor.setAttribute('download', 'image.jpeg')
-
-    anchor.click();
+    this.props.downloadImage()
   }
 
   render() {

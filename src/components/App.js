@@ -47,8 +47,8 @@ class App extends Component {
     })
   }
 
-  getImageDataUrlFromPreview = () => {
-    return this.previewNode.getImageDataUrl()
+  downloadImage = () => {
+    return this.previewNode.downloadImage()
   }
 
   render() {
@@ -71,7 +71,7 @@ class App extends Component {
           <Settings 
             onReset={this.onReset}
             onFileUploadCb={this.onFileUploadCb}
-            getImageDataUrlFromPreview={this.getImageDataUrlFromPreview}
+            downloadImage={this.downloadImage}
           />
         </div>
       </div>
