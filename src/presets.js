@@ -4,6 +4,9 @@ const preset = {
     sepia: 80,
     brightness: 110,
     contrast: 90,
+  },
+  monochrome: {
+    grayscale: 100
   }
 }
 

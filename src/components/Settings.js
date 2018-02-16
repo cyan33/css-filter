@@ -9,6 +9,10 @@ import presets from '../presets'
 import { capitalizeWord } from '../helpers'
 
 class Settings extends PureComponent {
+  state = {
+    preset: presets['none']
+  }
+
   onFileUpload = () => {
     const file = this.fileInput.files[0]
     const reader = new FileReader();
@@ -30,12 +34,14 @@ class Settings extends PureComponent {
     this.props.downloadImage()
   }
 
-  changePreset = (e, key, payload) => {
-    this.props.changePreset(payload)
+  changePreset = (e, key, preset) => {
+    this.setState({ preset })
+    this.props.changePreset(preset)
   }
 
   render() {
     const { onReset } = this.props
+    const { preset } = this.state
 
     return (
       <div className="settings" {...css({
@@ -77,8 +83,7 @@ class Settings extends PureComponent {
               opacity: '0',
               overflow: 'hidden',
               position: 'absolute',
-              zIndex: '-1',
-
+              zIndex: '-1'
             })}
           />
         </div>
@@ -97,6 +102,7 @@ class Settings extends PureComponent {
           floatingLabelFixed={true}
           hintText="Preset"
           autoWidth={true}
+          value={preset}
           onChange={this.changePreset}
           {...css({ 
             margin: '20px 0' 
@@ -105,6 +111,7 @@ class Settings extends PureComponent {
           {Object.keys(presets).map((name, i) => (
             <MenuItem
               key={i}
+              label={capitalizeWord(name)}
               value={presets[name]}
               primaryText={capitalizeWord(name)}
             />
