@@ -1,7 +1,12 @@
 import React, { PureComponent } from 'react'
 import { css } from 'glamor'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 import UploadIcon from 'material-ui/svg-icons/file/file-upload'
+
+import presets from '../presets'
+import { capitalizeWord } from '../helpers'
 
 class Settings extends PureComponent {
   onFileUpload = () => {
@@ -23,6 +28,10 @@ class Settings extends PureComponent {
 
   downloadImage = () => {
     this.props.downloadImage()
+  }
+
+  changePreset = (e, key, payload) => {
+    this.props.changePreset(payload)
   }
 
   render() {
@@ -73,26 +82,38 @@ class Settings extends PureComponent {
             })}
           />
         </div>
-        <RaisedButton 
-          label="Reset"
-          onClick={onReset}
-          style={{ marginRight: '10px' }}
-        />
-        <RaisedButton 
-          label="Download Picture"
-          onClick={this.downloadImage}
-        />
-        <br /> <br />
-        <div className="introduction">
-          Image filter rendered by pure CSS.<br /> <br />
         <div>
-          <h4>Reference</h4>
-          <br />
+          <RaisedButton 
+            label="Reset"
+            onClick={onReset}
+            style={{ marginRight: '10px' }}
+          />
+          <RaisedButton 
+            label="Download Picture"
+            onClick={this.downloadImage}
+          />
         </div>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">MDN | Filter</a> 
-        <br /> <br />
+        <SelectField
+          floatingLabelFixed={true}
+          hintText="Preset"
+          autoWidth={true}
+          onChange={this.changePreset}
+          {...css({ 
+            margin: '20px 0' 
+          })}
+        >
+          {Object.keys(presets).map((name, i) => (
+            <MenuItem
+              key={i}
+              value={presets[name]}
+              primaryText={capitalizeWord(name)}
+            />
+          ))}
+        </SelectField>
+        <h4>Reference</h4>
+        <br />
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">MDN | Filter</a> &nbsp;&nbsp;
         <a href="https://css-tricks.com/almanac/properties/f/filter/">CSS Tricks | Filter</a>
-        </div>
       </div>
     )
   }

@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { css } from 'glamor'
 import screenshot from 'image-screenshot'
 
-export default class Preview extends PureComponent {
+export default class Preview extends Component {
   transformFilters({
     brightness,
     blur,

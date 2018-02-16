@@ -51,6 +51,11 @@ class App extends Component {
     return this.previewNode.downloadImage()
   }
 
+  changePreset = (partialParameters) => {
+    const parameters = Object.assign({}, this.initParams(), partialParameters)
+    this.setState({ parameters })
+  }
+
   render() {
     return (
       <div {...css({
@@ -72,6 +77,7 @@ class App extends Component {
             onReset={this.onReset}
             onFileUploadCb={this.onFileUploadCb}
             downloadImage={this.downloadImage}
+            changePreset={this.changePreset}
           />
         </div>
       </div>
