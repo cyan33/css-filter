@@ -23,10 +23,11 @@
     "image-screenshot": "^0.1.0",
     "material-ui": "^0.20.0",
     "parcel-bundler": "^1.2.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.7.0-alpha.0",
+    "react-dom": "^16.7.0-alpha.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",

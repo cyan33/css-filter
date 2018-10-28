@@ -1,88 +1,75 @@
-import React, { Component } from 'react'
+import React, { useState, useRef } from 'react'
 import { css } from 'glamor'
+import screenshot from 'image-screenshot'
 
 import Preview from './Preview'
 import Parameters from './Parameters'
 import Settings from './Settings'
+import { 
+  transformFilters,
+  initParams,
+  downloadImage,
+  DEFAULT_IMAGE,
+} from '../helpers'
 
 import '../style.css'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      src: 'https://i.loli.net/2018/02/01/5a729b3dbd91f.jpg',
-      parameters: this.initParams()
-    }
-  }
+function App() {
+  const imgNode = useRef()
+  const [imageSrc, setImageSrc] = useState(DEFAULT_IMAGE)
+  const [parameters, setParameters] = useState(initParams())
 
-  initParams = () => ({
-    brightness: 100,
-    saturate: 100,
-    opacity: 100,
-    blur: 0,
-    contrast: 100,
-    grayscale: 0,
-    hueRotate: 0,
-    sepia: 0
-  })
-
-  handleRangeInput = (type, value) => {
-    this.setState({
-      parameters: {
-        ...this.state.parameters,
-        [type]: value
-      }
+  const handleRangeInput = (type, value) => {
+    setParameters({
+      ...parameters,
+      [type]: value
     })
   }
 
-  onFileUploadCb = (src) => {
-    this.setState({ src })
+  const onReset = () => {
+    setParameters(initParams())
   }
 
-  onReset = () => {
-    this.setState({
-      ...this.state,
-      parameters: this.initParams()
+  const downloadImage= () => {
+    screenshot(imgNode.current, 'jpeg', 1.0).download()
+  }
+
+  const changePreset = (partialParameters) => {
+    setParameters({
+      ...parameters,
+      ...partialParameters,
     })
   }
 
-  downloadImage = () => {
-    return this.previewNode.downloadImage()
-  }
-
-  changePreset = (partialParameters) => {
-    const parameters = Object.assign({}, this.initParams(), partialParameters)
-    this.setState({ parameters })
-  }
-
-  render() {
-    return (
-      <div {...css({
-        width: '600px',
-        height: '100%',
-        margin: '0 auto'
-      })}>
-        <Preview 
-          src={this.state.src}
-          ref={(previewNode) => this.previewNode = previewNode}
-          {...this.state.parameters}
+  return (
+    <div {...css({
+      width: '600px',
+      height: '100%',
+      margin: '0 auto',
+    })}>
+      <div className="img-container">
+        <img
+          ref={imgNode}
+          crossOrigin="anonymous"
+          src={imageSrc}
+          alt="filter-preview"
+          {...css({filter: transformFilters(parameters)})}
         />
-        <div className="content-container">
-          <Parameters 
-            {...this.state.parameters} 
-            onHandleRangeInput={this.handleRangeInput}
-          />
-          <Settings 
-            onReset={this.onReset}
-            onFileUploadCb={this.onFileUploadCb}
-            downloadImage={this.downloadImage}
-            changePreset={this.changePreset}
-          />
-        </div>
       </div>
-    )
-  }
+      <div className="content-container">
+        <Parameters 
+          {...parameters} 
+          onHandleRangeInput={handleRangeInput}
+        />
+        <Settings 
+          onReset={onReset}
+          onFileUploadCb={setImageSrc}
+          downloadImage={downloadImage}
+          changePreset={changePreset}
+        />
+      </div>
+    </div>
+  )
 }
 
 export default App

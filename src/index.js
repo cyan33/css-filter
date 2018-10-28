@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import App from './components/App'
 
 render(
-<MuiThemeProvider>
-  <App />
-</MuiThemeProvider>
+  <MuiThemeProvider>
+    <App />
+  </MuiThemeProvider>
 , document.querySelector('.root'))
